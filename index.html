@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*************************array data structure********************************/
+        /**************************problem1*******************************/
+
+        function sumOfDistinctElements(array1, array2) {
+            const combined = array1.concat(array2)
+            const elementCount = {}
+            combined.forEach(num => {
+                elementCount[num] = (elementCount[num] || 0) + 1
+            });
+            let distinctSum = 0
+            for (const [num, count] of Object.entries(elementCount)) {
+                if (count === 1) {
+                    distinctSum += parseInt(num)
+                }
+            }
+
+            return distinctSum
+        }
+        const array1 = [3, 1, 7, 9]
+        const array2 = [2, 4, 1, 9, 3]
+        console.log("Sum of distinct elements:", sumOfDistinctElements(array1, array2))
+
+        /***************************problem2***************************/
+
+        const dot_product = (v1, v2) => {
+            if (v1.length !== v2.length) {
+                throw new Error("Vectors must have the same length.")
+            }
+
+            const ps = v1.reduce((sum, current, index) => sum + current * v2[index], 0)
+            const isOrthogonal = (ps === 0)
+
+            console.log("Dot product:", ps)
+            console.log("Are the vectors orthogonal?", isOrthogonal)
+
+            return ps;
+        }
+        const v1 = [1, 2, 3]
+        const v2 = [-3, -2, 1]
+
+        const ps = dot_product(v1, v2)
+        /***********************************Linked List Data Structure******************************/
+        class Node {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+
+        const deleteNodeAtPosition = (head, position) => {
+
+            if (!head) {
+                console.log("List is empty.");
+                return null;
+            }
+
+            if (position === 0) {
+                const newHead = head.next;
+                head = null;
+                return newHead;
+            }
+
+
+            let current = head;
+            let prev = null;
+            let count = 0;
+
+            while (current !== null && count < position) {
+                prev = current;
+                current = current.next;
+                count++;
+            }
+            if (current === null) {
+                console.log("Position is out of bounds.");
+                return head;
+            }
+            prev.next = current.next;
+            current = null;
+
+            return head;
+        };
+
+        const printList = (head) => {
+            let current = head;
+            while (current !== null) {
+                console.log(current.value);
+                current = current.next;
+            }
+        };
+
+
+        let head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+        head.next.next.next = new Node(4);
+        head.next.next.next.next = new Node(5);
+
+        console.log("Original List:");
+        printList(head);
+
+        head = deleteNodeAtPosition(head, 2);
+
+        console.log("\nList after deletion:");
+        printList(head);
+
+        /******************************Stack Data Structure***************************************/
+
+        class Stack {
+            constructor() {
+                this.items = [];
+            }
+
+            push(element) {
+                this.items.push(element);
+            }
+
+            pop() {
+                if (this.isEmpty()) {
+                    return "Stack is empty";
+                }
+                return this.items.pop();
+            }
+
+            isEmpty() {
+                return this.items.length === 0;
+            }
+
+
+            peek() {
+                return this.isEmpty() ? "Stack is empty" : this.items[this.items.length - 1];
+            }
+        }
+
+
+        const reverseString = (str) => {
+            const stack = new Stack();
+
+            for (let i = 0; i < str.length; i++) {
+                stack.push(str[i]);
+            }
+            let reversedStr = "";
+            while (!stack.isEmpty()) {
+                reversedStr += stack.pop();
+            }
+
+            return reversedStr;
+        };
+
+
+        const str = "hello";
+        console.log("Original String:", str);
+        console.log("Reversed String:", reverseString(str));
+
+    </script>
+</body>
+
+</html>
